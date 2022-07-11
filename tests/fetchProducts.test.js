@@ -6,3 +6,5 @@ describe('1 - Teste a função fetchProducts', () => {
   // implemente seus testes aqui
   fail('Teste vazio');
 });
+
+
