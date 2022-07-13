@@ -5,6 +5,18 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
+const createList = ({ sku, name, image }) => {
+  const section = document.getElementsByClassName('items');
+  const list = document.createElement('ul');
+  const itemList = document.createElement('li');
+  itemList.innerText = `sku: ${sku}
+  name: ${name}
+  image: ${image}`;
+  section.appendChild(list);
+  list.appendChild(itemList);
+  return section;
+};
+
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
   e.className = className;
@@ -15,12 +27,10 @@ const createCustomElement = (element, className, innerText) => {
 const createProductItemElement = ({ sku, name, image }) => {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 };
 
@@ -38,4 +48,43 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-window.onload = () => { };
+const objArray = async (element) => {
+  const arr = [];
+  const obj = await fetchProducts(element);
+  obj.forEach((element2) => {
+    const newObj = {
+      sku: element2.id,
+      name: element2.title,
+      image: element2.thumbnail,
+    };
+    arr.push(newObj);
+  });
+  return arr;
+};
+
+const createListFunct = async (element) => {
+  const container = document.querySelector('.items');
+  const result = await objArray(element);
+  // console.log(container.appendChild(createProductItemElement(result[0])));
+  result.forEach((variable) => {
+    container.appendChild(createProductItemElement(variable));
+  });
+  return container;
+};
+
+document.addEventListener('click', async function (e) {
+  const container = document.querySelector('#cart_item');
+  const selectedItem = e.path[1].firstChild.innerText;
+  const objSelect = await fetchItem(selectedItem);
+  const objReturn = {
+    sku: objSelect.id,
+    name: objSelect.title,
+    salePrice: objSelect.price,
+  };
+  container.appendChild(createCartItemElement(objReturn));
+  return container;
+});
+
+window.onload = async () => {
+  await createListFunct('computador');
+};
