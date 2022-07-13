@@ -5,18 +5,6 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
-// const createList = ({ sku, name, image }) => {
-//   const section = document.getElementsByClassName('items');
-//   const list = document.createElement('ul');
-//   const itemList = document.createElement('li');
-//   itemList.innerText = `sku: ${sku}
-//   name: ${name}
-//   image: ${image}`;
-//   section.appendChild(list);
-//   list.appendChild(itemList);
-//   return section;
-// };
-
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
   e.className = className;
