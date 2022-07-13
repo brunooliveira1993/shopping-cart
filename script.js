@@ -5,17 +5,17 @@ const createProductImageElement = (imageSource) => {
   return img;
 };
 
-const createList = ({ sku, name, image }) => {
-  const section = document.getElementsByClassName('items');
-  const list = document.createElement('ul');
-  const itemList = document.createElement('li');
-  itemList.innerText = `sku: ${sku}
-  name: ${name}
-  image: ${image}`;
-  section.appendChild(list);
-  list.appendChild(itemList);
-  return section;
-};
+// const createList = ({ sku, name, image }) => {
+//   const section = document.getElementsByClassName('items');
+//   const list = document.createElement('ul');
+//   const itemList = document.createElement('li');
+//   itemList.innerText = `sku: ${sku}
+//   name: ${name}
+//   image: ${image}`;
+//   section.appendChild(list);
+//   list.appendChild(itemList);
+//   return section;
+// };
 
 const createCustomElement = (element, className, innerText) => {
   const e = document.createElement(element);
@@ -34,10 +34,12 @@ const createProductItemElement = ({ sku, name, image }) => {
   return section;
 };
 
-const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
+// const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').innerText;
 
 const cartItemClickListener = (event) => {
-  // coloque seu código aqui
+  const container = document.querySelector('#cart_item');
+  const item = event.target;
+  container.removeChild(item);
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -65,7 +67,6 @@ const objArray = async (element) => {
 const createListFunct = async (element) => {
   const container = document.querySelector('.items');
   const result = await objArray(element);
-  // console.log(container.appendChild(createProductItemElement(result[0])));
   result.forEach((variable) => {
     container.appendChild(createProductItemElement(variable));
   });
