@@ -1,5 +1,7 @@
-const saveCartItems = (item) => localStorage.setItem('cartItems', item);
+const saveCartItem = (item) => localStorage.setItem('cartItems', item);
+
+// console.log(saveCartItemsComplet());
 
 if (typeof module !== 'undefined') {
-  module.exports = saveCartItems;
+  module.exports = saveCartItem;
 }
